@@ -15,15 +15,37 @@
       android:layout_height="wrap_content">
 
   </CalendarView>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
 
   <Button
       android:id="@+id/buttonAdd"
       android:layout_height="wrap_content"
-      android:layout_width="match_parent"
+      android:layout_width="wrap_content"
       android:text="Добавить событие"
       android:onClick="addEvent"
       >
   </Button>
+  <Button
+      android:id="@+id/buttonStart"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:text="Старт"
+      android:onClick="startService"
+      >
+  </Button>
+  <Button
+      android:id="@+id/buttonStop"
+      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:text="Стоп"
+      android:onClick="stopService"
+      >
+  </Button>
+</LinearLayout>
+
 
 
   <androidx.recyclerview.widget.RecyclerView

@@ -25,9 +25,12 @@ import com.example.birhdaykeeper.dataBaseManager.BirthdayManDataBaseContract;
 import com.example.birhdaykeeper.dataBaseManager.BirthdayManSQLiteDataBase;
 import com.example.birhdaykeeper.dataBaseManager.SQLDBException;
 import com.example.birhdaykeeper.recyclerViewPack.BirthdayManAdapter;
+import com.example.birhdaykeeper.serializableStuff.JsonManager;
+import com.example.birhdaykeeper.services.NotificationService;
 import com.example.birhdaykeeper.unit.BirthDayMan;
 import com.example.birhdaykeeper.unit.Category;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
     Calendar calendar;
     SimpleDateFormat simpleDateFormat;
     String dataPickFormat;
+
+    File file;
+    JsonManager jsonManager = new JsonManager();
+    String FILENAME = "templateCongratulation.json";
 
     RecyclerView recyclerView;
     BirthdayManAdapter birthdayManAdapter;
@@ -75,18 +82,17 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<BirthDayMan> birthDayManArrayList = new ArrayList<>();
         birthDayManArrayList.add(b1);
         birthDayManArrayList.add(b2);*/
-
-
         /*recyclerView  = findViewById(R.id.myRecycler);
         birthdayManAdapter = new BirthdayManAdapter(birthDayManArrayList);
         recyclerView.setAdapter(birthdayManAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));*/
-
-
       //  this.deleteDatabase(BirthdayManDataBaseContract.DATABASE_NAME);
        // BirthdayManSQLiteDataBase sql = BirthdayManSQLiteDataBase.getInstance(this);
 
         recyclerView  = findViewById(R.id.myRecycler);
+        file = new File(super.getFilesDir(),FILENAME);
+       // jsonManager.takeFileFromActivity(file);
+        jsonManager.jsonManipulation.isFileExists(file);
 
     }
 
@@ -211,15 +217,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteRecipe(BirthDayMan birthDayMan){
         android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(MainActivity.this);
-        alert.setTitle("Warning!").
-                setMessage("Are you really want to delete this element?").
-                setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alert.setTitle("Внимание!").
+                setMessage("Вы действительно хотите удалить заметку?").
+                setPositiveButton("Да", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         try {
-                            /*ListExistingRecipesManager listExistingRecipesManager =
-                                    new ListExistingRecipesManager(recipesFromDb,listFragment.forListManager);
-                            listExistingRecipesManager.removeElementV2(recipe);*/
                             sqLiteDataBase.deleteRecipeFromDb(birthDayMan);
                             onResume();
                         }
@@ -227,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
 
                         }
                     }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                }).setNegativeButton("Нет", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -248,5 +251,16 @@ public class MainActivity extends AppCompatActivity {
         else
             Toast.makeText(getApplicationContext(),"Не выбрана дата",Toast.LENGTH_SHORT);
 
+    }
+
+    public void startService(View view) {
+        Intent intent = new Intent(this, NotificationService.class);
+        intent.putExtra("Date", dataPickFormat);
+        startService(intent);
+
+    }
+
+    public void stopService(View view) {
+        stopService(new Intent(this, NotificationService.class));
     }
 }

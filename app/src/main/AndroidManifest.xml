@@ -2,14 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.birhdaykeeper">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <application
+        android:name=".services.AppClass"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/birthicon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BirhdayKeeper">
-        <activity android:name=".activities.SortActivity"></activity>
+
+
+        <activity android:name=".activities.SortActivity" />
         <activity android:name=".activities.UpdateInfoPersonActivity" />
         <activity android:name=".activities.ShowInfoPersonActivity" />
         <activity android:name=".activities.AddHappyEventActivity" />
@@ -20,6 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".services.NotificationService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>
