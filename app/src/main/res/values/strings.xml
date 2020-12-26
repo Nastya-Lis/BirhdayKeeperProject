@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">BirthdayKeeper</string>
+    <string name="birthdayManName">Имя:</string>
+    <string name="surnameBirthdayMan">Фамилия:</string>
+    <string name="category">Категория</string>
+    <string name="birthday">День рождения:</string>
+    <string name="email">Почта:</string>
+    <string name="phone">Телефон:</string>
+    <string name="sortIcon">sorting</string>
+    <string name="edit">Изменить</string>
+    <string name="delete">Удалить</string>
+</resources>

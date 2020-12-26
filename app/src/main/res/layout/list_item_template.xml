@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="15dp"
+    >
+
+    <RelativeLayout
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/nameElementId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"
+                android:textSize="15dp">
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/surnameElementId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="surname"
+                android:textSize="15dp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/dateBirthElementId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="birth"
+                android:textSize="15dp"
+                >
+
+            </TextView>
+            <TextView
+                android:id="@+id/categoryElementId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="category"
+                android:textSize="15dp"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.ShowInfoPersonActivity">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        >
+        <TextView
+            android:hint="@string/birthdayManName"
+            android:textSize="24dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/nameCurrentPersonId"
+            android:textSize="24dp">
+        </TextView>
+
+        <TextView
+            android:hint="@string/surnameBirthdayMan"
+            android:textSize="24dp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/surnameCurrentPersonId"
+            android:textSize="24dp">
+        </TextView>
+
+        <TextView
+            android:hint="@string/email"
+            android:textSize="24dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/emailCurrentPersonId"
+            android:textSize="24dp">
+        </TextView>
+
+        <TextView
+            android:hint="@string/phone"
+            android:textSize="24dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/phoneCurrentPersonId"
+            android:textSize="24dp">
+        </TextView>
+
+        <TextView
+            android:hint="@string/category"
+            android:textSize="24dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/categoryCurrentPersonId"
+            android:textSize="24dp">
+        </TextView>
+
+
+        <TextView
+            android:hint="@string/birthday"
+            android:textSize="24dp">
+
+        </TextView>
+        <TextView
+            android:id="@+id/birthdayCurrentPersonId"
+            android:textSize="24dp"
+            >
+        </TextView>
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/emailIdCurrent"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Отправить поздравление на почту"
+            android:onClick="emailCross">
+
+        </Button>
+
+        <Button
+            android:id="@+id/phoneIdCurrent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="позвонить и поздравить"
+            android:onClick="phoneCross">
+
+        </Button>
+
+    </LinearLayout>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
