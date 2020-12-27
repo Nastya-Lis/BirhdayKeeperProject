@@ -75,16 +75,21 @@ public class NotificationService extends Service {
         simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
         String dateFormat = simpleDateFormat.format(calendar.getTime());
 
-        if(sqLiteDataBase == null){
-            sqLiteDataBase = BirthdayManSQLiteDataBase.getInstance(getApplicationContext());
-        }
-        try {
-            List<BirthDayMan> birthDayManList = sqLiteDataBase.takeMenByBirth(dateFormat);
-            Log.d(LOG_TAG,"size:" + birthDayManList.size() );
-            madeNotification(birthDayManList);
-        } catch (SQLDBException e) {
-            e.printStackTrace();
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (sqLiteDataBase == null) {
+                    sqLiteDataBase = BirthdayManSQLiteDataBase.getInstance(getApplicationContext());
+                }
+                try {
+                    List<BirthDayMan> birthDayManList = sqLiteDataBase.takeMenByBirth(dateFormat);
+                    Log.d(LOG_TAG, "size:" + birthDayManList.size());
+                    madeNotification(birthDayManList);
+                } catch (SQLDBException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
      //   stopSelf();
     }
 
@@ -119,7 +124,6 @@ public class NotificationService extends Service {
         int countChannel = 0;
         List<Notification> groups = new ArrayList<>();
 
-
         for(int i = 0; i < birthDayManList.size();i++){
 
 
@@ -142,13 +146,13 @@ public class NotificationService extends Service {
             intent.putExtra(BirthDayMan.class.getSimpleName(),birthDayManList.get(i));
             intent.putExtra("NotificationID",countChannel);
 
-         /*   TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
             stackBuilder.addParentStack(ShowInfoPersonActivity.class);
             stackBuilder.addNextIntent(intent);
 
             PendingIntent pendingIntent =
-                    stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);*/
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,0);
+                    stackBuilder.getPendingIntent(countChannel, PendingIntent.FLAG_UPDATE_CURRENT);
+          //  PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,0);
 
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -181,6 +185,7 @@ public class NotificationService extends Service {
 
         for(int i = 0; i < groups.size();i++){
             notificationManager.notify(i+1,groups.get(i));
+          //  stopSelf(i);
             SystemClock.sleep(1000);
         }
 

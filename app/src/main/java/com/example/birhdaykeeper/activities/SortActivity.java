@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 
 import com.example.birhdaykeeper.MainActivity;
@@ -34,6 +36,7 @@ public class SortActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     BirthdayManAdapter birthdayManAdapter;
 
+    PopupMenu popupMenu;
     Button buttonChoose,buttonDefault;
 
 
@@ -43,9 +46,6 @@ public class SortActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sort);
 
-
-        //Лучше сделать это все в асинхронтаске
-        //который будет вызываться в репозитории
 
         buttonChoose = findViewById(R.id.buttonSpinner);
         buttonDefault = findViewById(R.id.buttonDefault);
@@ -64,7 +64,6 @@ public class SortActivity extends AppCompatActivity {
             birthdayManAdapter = new BirthdayManAdapter(birthDayManList);
             recyclerView.setAdapter(birthdayManAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         }
 
         resForCategoryView();
@@ -75,7 +74,7 @@ public class SortActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         buttonChoose.setOnClickListener(view -> {
-            if(categoryChoose!=null && !categoryChoose.isEmpty()){
+           /* if(categoryChoose!=null && !categoryChoose.isEmpty()){
 
                 if(sqLiteDataBase == null)
                 {
@@ -94,7 +93,9 @@ public class SortActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-            }
+            }*/
+            categoryChoosed();
+
         });
         buttonDefault.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,11 +109,109 @@ public class SortActivity extends AppCompatActivity {
                     List<BirthDayMan> birthDayMEN = sqLiteDataBase.takeAllBirthManFromDb();
                     updateRecyclerData(birthDayMEN);
 
+
                 } catch (SQLDBException e) {
                     e.printStackTrace();
                 }
             }
         });
+
+       creationOfPopupMenu();
+
+    }
+
+
+    private void categoryChoosed(){
+        if(categoryChoose!=null && !categoryChoose.isEmpty()){
+
+            if(sqLiteDataBase == null)
+            {
+                sqLiteDataBase = BirthdayManSQLiteDataBase.getInstance(SortActivity.this);
+            }
+            try {
+
+                List<BirthDayMan> birthDayMEN = sqLiteDataBase.takeAllBirthManFromDb();
+                List<BirthDayMan> birthSend = birthDayMEN.stream().
+                        filter((birthMan1)-> birthMan1.getCategory().toString() == categoryChoose).
+                        collect(Collectors.toList());
+
+                updateRecyclerData(birthSend);
+
+            } catch (SQLDBException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+
+    private void creationOfPopupMenu() {
+
+        birthdayManAdapter.setOnBirthManClickListener(birthdayMan -> {
+            Intent intent = new Intent(this, ShowInfoPersonActivity.class);
+            intent.putExtra(BirthDayMan.class.getSimpleName(), birthdayMan);
+            startActivity(intent);
+        });
+        //   listFragment.updateFragmentData();
+
+
+        birthdayManAdapter.setOnBirthManLongClickListener((birthDayMan, view) -> {
+            popupMenu = new PopupMenu(this, view);
+            popupMenu.inflate(R.menu.context_menu);
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem menuItem) {
+                    switch (menuItem.getItemId()) {
+                        case R.id.editId:
+                            editRecipe(birthDayMan);
+                            break;
+                        case R.id.deleteId:
+                            deleteRecipe(birthDayMan);
+                            //     activateSQLDb(dataPickFormat);
+                            break;
+                    }
+                    return true;
+                }
+            });
+            popupMenu.show();
+            return true;
+        });
+
+        // updatingData();
+        //  listFragment.updateFragmentData();
+    }
+
+
+    private void editRecipe(BirthDayMan birthDayMan){
+        Intent intent = new Intent(this, UpdateInfoPersonActivity.class);
+        intent.putExtra(BirthDayMan.class.getSimpleName(),birthDayMan);
+        startActivity(intent);
+    }
+
+    private void deleteRecipe(BirthDayMan birthDayMan){
+        android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(SortActivity.this);
+        alert.setTitle("Внимание!").
+                setMessage("Вы действительно хотите удалить заметку?").
+                setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        try {
+                            sqLiteDataBase.deleteRecipeFromDb(birthDayMan);
+                            onResume();
+                        }
+                        catch (Exception e){
+
+                        }
+                    }
+                }).setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        android.app.AlertDialog alertDialog = alert.create();
+        alertDialog.show();
+
     }
 
 
@@ -120,6 +219,7 @@ public class SortActivity extends AppCompatActivity {
         BirthdayManAdapter birthManAdapter = new BirthdayManAdapter(list);
         recyclerView.setAdapter(birthManAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    //    creationOfPopupMenu();
     }
 
     private void resForCategoryView() {

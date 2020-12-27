@@ -49,6 +49,7 @@ public class InfoFragment extends Fragment {
     private String mParam2;*/
 
     public BirthDayMan birthDayMan = new BirthDayMan();
+    public int notificationId;
 
     public InfoFragment() {
         // Required empty public constructor

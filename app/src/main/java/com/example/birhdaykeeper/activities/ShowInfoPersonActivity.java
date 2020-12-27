@@ -95,10 +95,6 @@ public class ShowInfoPersonActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.birth_template_choose,chooseFragment).
                         addToBackStack(null);
                 fragmentTransaction.commit();
-
-           /* Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"
-                    + infoFragment.birthDayMan.getEmail()));
-            startActivity(intent);*/
             }
             else{
                 Toast.makeText(ShowInfoPersonActivity.this,

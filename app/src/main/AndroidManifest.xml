@@ -13,8 +13,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BirhdayKeeper">
-
-
         <activity android:name=".activities.SortActivity" />
         <activity android:name=".activities.UpdateInfoPersonActivity" />
         <activity android:name=".activities.ShowInfoPersonActivity" />
@@ -27,18 +25,16 @@
             </intent-filter>
         </activity>
 
-
         <receiver
             android:name=".services.NotifyBroadcastReceiver"
             android:enabled="true"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-
         </receiver>
-
 
         <service
             android:name=".services.NotificationService"
