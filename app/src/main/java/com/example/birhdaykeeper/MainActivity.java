@@ -2,6 +2,7 @@ package com.example.birhdaykeeper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -167,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     private void creationOfPopupMenu() {
 
         birthdayManAdapter.setOnBirthManClickListener(birthdayMan -> {
@@ -204,14 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void editRecipe(BirthDayMan birthDayMan){
         Intent intent = new Intent(this, UpdateInfoPersonActivity.class);
-       /* String currentKey = "";
-        for (String key: listFragment.forListManager.keySet()) {
-            if( recipe == listFragment.forListManager.get(key))
-            currentKey = key;
-        }*/
         intent.putExtra(BirthDayMan.class.getSimpleName(),birthDayMan);
-        /*   intent.putExtra(nameUser,userId);*/
-        // intent.putExtra("currentKey",currentKey);
         startActivity(intent);
     }
 
@@ -256,7 +249,9 @@ public class MainActivity extends AppCompatActivity {
     public void startService(View view) {
         Intent intent = new Intent(this, NotificationService.class);
         intent.putExtra("Date", dataPickFormat);
-        startService(intent);
+       startService(intent);
+        //нужно через стартфореграунд запускать
+      //  ContextCompat.startForegroundService(this,intent);
 
     }
 

@@ -1,34 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.ShowInfoPersonActivity">
+    android:layout_height="wrap_content"
+    tools:context=".fragments.InfoFragment">
 
-    <FrameLayout
-        android:id="@+id/birthMan_info"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="2dp"
-        android:background="@android:color/darker_gray" />
-
-    <FrameLayout
-        android:id="@+id/birth_template_choose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:visibility="gone" />
-
-</LinearLayout>
-
-    <!--    <GridLayout
+        android:orientation="vertical">
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
@@ -107,8 +88,7 @@
                 android:id="@+id/emailIdCurrent"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="Отправить поздравление на почту"
-                android:onClick="emailCross">
+                android:text="Отправить поздравление на почту">
 
             </Button>
 
@@ -116,12 +96,11 @@
                 android:id="@+id/phoneIdCurrent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="позвонить и поздравить"
-                android:onClick="phoneCross">
+                android:text="позвонить и поздравить">
 
             </Button>
 
-        </LinearLayout>-->
+        </LinearLayout>
 
-
-
+    </LinearLayout>
+</FrameLayout>

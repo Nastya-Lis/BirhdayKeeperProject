@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".fragments.ChooseFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:text="Выберите шаблон поздравления"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="25dp"
+            android:layout_marginBottom="25dp">
+        </TextView>
+
+        <ListView
+            android:id="@+id/mineListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical">
+        </ListView>
+
+        <Button
+            android:id="@+id/justSendToEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="отправить без этих ваших"
+            >
+        </Button>
+    </LinearLayout>
+
+
+</FrameLayout>

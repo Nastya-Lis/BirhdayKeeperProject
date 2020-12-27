@@ -10,4 +10,6 @@
     <string name="edit">Изменить</string>
     <string name="delete">Удалить</string>
     <string name="tempCongratIcon">поздравления</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
