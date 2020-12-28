@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.TemplateCreateActivity">
+
+
+    <TextView
+        android:text="Вы можете добавить свои поздравления"
+        android:layout_width="match_parent"
+        android:layout_height= "wrap_content"
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        >
+    </TextView>
+
+    <ListView
+        android:id="@+id/templateListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+    </ListView>
+
+    <Button
+        android:id="@+id/addTemplate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Добавить"
+        android:onClick="addTemplate">
+    </Button>
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>

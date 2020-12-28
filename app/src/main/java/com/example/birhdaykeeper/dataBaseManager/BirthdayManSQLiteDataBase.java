@@ -43,7 +43,7 @@ public class BirthdayManSQLiteDataBase {
         birthDaySQLiteDataBaseSingleton.sqLiteDatabase.close();
     }
 
-    public void addRecipeToDb(BirthDayMan birthDayMan) throws SQLDBException{
+    public void addBirthManToDb(BirthDayMan birthDayMan) throws SQLDBException{
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(BirthdayManDataBaseContract.DbContract.COLUMN_ID,birthDayMan.getId());
@@ -61,7 +61,7 @@ public class BirthdayManSQLiteDataBase {
         }
     }
 
-    public void updateRecipeInDb(BirthDayMan birthDayMan){
+    public void updateBirthManInDb(BirthDayMan birthDayMan){
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(BirthdayManDataBaseContract.DbContract.COLUMN_ID,birthDayMan.getId());
@@ -78,7 +78,7 @@ public class BirthdayManSQLiteDataBase {
 
     }
 
-    public void deleteRecipeFromDb(BirthDayMan birthDayMan) throws SQLDBException{
+    public void deleteBirthManFromDb(BirthDayMan birthDayMan) throws SQLDBException{
         if(sqLiteDatabase.delete(BirthdayManDataBaseContract.DbContract.TABLE_NAME,
                 BirthdayManDataBaseContract.DbContract.COLUMN_ID + " =? AND " +
                         BirthdayManDataBaseContract.DbContract.COLUMN_NAME + " =?",

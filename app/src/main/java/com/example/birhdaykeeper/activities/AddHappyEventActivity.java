@@ -2,9 +2,7 @@ package com.example.birhdaykeeper.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.icu.text.UnicodeSetSpanner;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,10 +12,8 @@ import android.widget.Toast;
 
 import com.example.birhdaykeeper.R;
 import com.example.birhdaykeeper.dataBaseManager.BirthdayManSQLiteDataBase;
-import com.example.birhdaykeeper.dataBaseManager.SQLDBException;
 import com.example.birhdaykeeper.unit.BirthDayMan;
 import com.example.birhdaykeeper.unit.Category;
-import com.example.birhdaykeeper.unit.ExceptionBirth;
 
 import java.util.ArrayList;
 
@@ -104,7 +100,7 @@ public class AddHappyEventActivity extends AppCompatActivity {
 
                 BirthdayManSQLiteDataBase birthDaySQLiteDataBase = BirthdayManSQLiteDataBase.getInstance(this);
                 birthDaySQLiteDataBase =  BirthdayManSQLiteDataBase.getInstance(this);
-                birthDaySQLiteDataBase.addRecipeToDb(currentBirthDayMan);
+                birthDaySQLiteDataBase.addBirthManToDb(currentBirthDayMan);
                 Toast.makeText(this, "добавлено", Toast.LENGTH_LONG).show();
 
             } catch (Exception exceptionBirth) {

@@ -21,7 +21,7 @@
 
         <Button
             android:id="@+id/buttonSpinner"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Выбрать"

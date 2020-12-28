@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BirhdayKeeper">
+        <activity android:name=".activities.TemplateCreateActivity"></activity>
         <activity android:name=".activities.SortActivity" />
         <activity android:name=".activities.UpdateInfoPersonActivity" />
         <activity android:name=".activities.ShowInfoPersonActivity" />

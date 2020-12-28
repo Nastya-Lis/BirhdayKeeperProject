@@ -29,7 +29,7 @@ public class JsonManipulation {
                 }
             }
             else {
-               // file.delete();
+              //  file.delete();
                 Log.i("Log_json", "File exists");
                 return true;
             }
@@ -57,6 +57,49 @@ public class JsonManipulation {
                 objectMapper.writerWithDefaultPrettyPrinter().writeValue(file,templateList);
             }
             catch (IOException e) {
+                Log.i("Log_json","Oops, your serialization doesn't work");
+            }
+        }
+    }
+
+
+
+    private void serializationToJsonForRemove(File file, StringForJson forJson){
+        if(isFileExists(file)){
+            objectMapper = new ObjectMapper();
+            try{
+                templateList = getFromFileList(file);
+                if(templateList == null){
+                    templateList = new StringForJson();
+                }
+                templateList.listTemplate = forJson.listTemplate;
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file,templateList);
+            }
+            catch(IOException e){
+                Log.i("Log_json","Oops, your serialization doesn't work");
+            }
+        }
+    }
+
+
+    public void removeElementV2(String stringSend,File file){
+        List<String> listString = deserializationFromJson(file).listTemplate;
+        listString.removeIf(str ->str.equals(stringSend));
+        serializationToJsonForRemove(file,new StringForJson(listString));
+    }
+
+    public void serializationToJsonForUpdate(File file,StringForJson forJson){
+        if(isFileExists(file)){
+            objectMapper = new ObjectMapper();
+            try{
+                templateList = getFromFileList(file);
+                if(templateList == null){
+                    templateList = new StringForJson();
+                }
+                templateList.listTemplate = forJson.listTemplate;
+                objectMapper.writerWithDefaultPrettyPrinter().writeValue(file,templateList);
+            }
+            catch(IOException e){
                 Log.i("Log_json","Oops, your serialization doesn't work");
             }
         }

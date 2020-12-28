@@ -2,15 +2,11 @@ package com.example.birhdaykeeper;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,21 +18,18 @@ import android.widget.Toast;
 import com.example.birhdaykeeper.activities.AddHappyEventActivity;
 import com.example.birhdaykeeper.activities.ShowInfoPersonActivity;
 import com.example.birhdaykeeper.activities.SortActivity;
+import com.example.birhdaykeeper.activities.TemplateCreateActivity;
 import com.example.birhdaykeeper.activities.UpdateInfoPersonActivity;
-import com.example.birhdaykeeper.dataBaseManager.BirthdayManDataBaseContract;
 import com.example.birhdaykeeper.dataBaseManager.BirthdayManSQLiteDataBase;
 import com.example.birhdaykeeper.dataBaseManager.SQLDBException;
 import com.example.birhdaykeeper.recyclerViewPack.BirthdayManAdapter;
 import com.example.birhdaykeeper.serializableStuff.JsonManager;
 import com.example.birhdaykeeper.services.NotificationService;
 import com.example.birhdaykeeper.unit.BirthDayMan;
-import com.example.birhdaykeeper.unit.Category;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -118,11 +111,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void updatingData(List<BirthDayMan> birthDayMEN){
-        birthdayManAdapter = new BirthdayManAdapter(birthDayMEN);
-        recyclerView.setAdapter(birthdayManAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        creationOfPopupMenu();
+    private void updatingData(){
+        List<BirthDayMan> birthDayMEN = null;
+        try {
+            birthDayMEN = sqLiteDataBase.takeAllBirthManFromDb();
+            birthdayManAdapter = new BirthdayManAdapter(birthDayMEN);
+            recyclerView.setAdapter(birthdayManAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            creationOfPopupMenu();
+        } catch (SQLDBException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void activateSQLDb(String date){
@@ -152,8 +152,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.sort:
-                Intent intent = new Intent(MainActivity.this, SortActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(MainActivity.this, SortActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.templateCongratulation:
+                Intent intent2 = new Intent(MainActivity.this, TemplateCreateActivity.class);
+                startActivity(intent2);
+                break;
+            case R.id.start_service:
+                Intent intent = new Intent(this, NotificationService.class);
+                intent.putExtra("Date", dataPickFormat);
+                startService(intent);
+                break;
+            case R.id.stop_service:
+                stopService(new Intent(this, NotificationService.class));
                 break;
         }
 
@@ -212,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         try {
-                            sqLiteDataBase.deleteRecipeFromDb(birthDayMan);
+                            sqLiteDataBase.deleteBirthManFromDb(birthDayMan);
                             onResume();
                         }
                         catch (Exception e){
@@ -227,7 +239,6 @@ public class MainActivity extends AppCompatActivity {
         });
         android.app.AlertDialog alertDialog = alert.create();
         alertDialog.show();
-
     }
 
 

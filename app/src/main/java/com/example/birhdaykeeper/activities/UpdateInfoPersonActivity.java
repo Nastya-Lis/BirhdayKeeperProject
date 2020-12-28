@@ -16,7 +16,6 @@ import com.example.birhdaykeeper.R;
 import com.example.birhdaykeeper.dataBaseManager.BirthdayManSQLiteDataBase;
 import com.example.birhdaykeeper.unit.BirthDayMan;
 import com.example.birhdaykeeper.unit.Category;
-import com.example.birhdaykeeper.unit.ExceptionBirth;
 
 import java.util.ArrayList;
 
@@ -106,7 +105,7 @@ public class UpdateInfoPersonActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(createRecipe() == 0) {
                             sqLiteDataBase = BirthdayManSQLiteDataBase.getInstance(UpdateInfoPersonActivity.this);
-                            sqLiteDataBase.updateRecipeInDb(currentBirthDayMan);
+                            sqLiteDataBase.updateBirthManInDb(currentBirthDayMan);
                             Toast.makeText(UpdateInfoPersonActivity.this,
                                     "изменение прошло успешно", Toast.LENGTH_LONG).show();
                         }

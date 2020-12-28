@@ -31,8 +31,6 @@ public class InfoFragment extends Fragment {
     public SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     public String currentDateFormat, birthDateFormat;
 
-
-
     final String BIRTH_ARG = "birthArg";
 
     View InfoFragmentView;

@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
 
-import com.example.birhdaykeeper.MainActivity;
 import com.example.birhdaykeeper.R;
 import com.example.birhdaykeeper.dataBaseManager.BirthdayManSQLiteDataBase;
 import com.example.birhdaykeeper.dataBaseManager.SQLDBException;
@@ -35,11 +34,8 @@ public class SortActivity extends AppCompatActivity {
     BirthdayManSQLiteDataBase sqLiteDataBase;
     RecyclerView recyclerView;
     BirthdayManAdapter birthdayManAdapter;
-
     PopupMenu popupMenu;
     Button buttonChoose,buttonDefault;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +66,24 @@ public class SortActivity extends AppCompatActivity {
     }
 
 
+    private void updatingData(){
+        List<BirthDayMan> birthDayMEN = null;
+        try {
+            birthDayMEN = sqLiteDataBase.takeAllBirthManFromDb();
+            birthdayManAdapter = new BirthdayManAdapter(birthDayMEN);
+            recyclerView.setAdapter(birthdayManAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            creationOfPopupMenu();
+        } catch (SQLDBException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
+        updatingData();
         buttonChoose.setOnClickListener(view -> {
            /* if(categoryChoose!=null && !categoryChoose.isEmpty()){
 
@@ -196,8 +207,9 @@ public class SortActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         try {
-                            sqLiteDataBase.deleteRecipeFromDb(birthDayMan);
+                            sqLiteDataBase.deleteBirthManFromDb(birthDayMan);
                             onResume();
+                           // updatingData();
                         }
                         catch (Exception e){
 

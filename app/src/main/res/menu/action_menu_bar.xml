@@ -2,6 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <item
+        android:id="@+id/workService"
+        android:icon="@drawable/ic_baseline_not_started_24"
+        app:showAsAction="always"
+        android:title="сервисы"
+        >
+        <menu>
+            <item
+                android:id="@+id/start_service"
+                android:title="@string/staart"/>
+            <item
+                android:id="@+id/stop_service"
+                android:title="@string/stooop"/>
+        </menu>
+    </item>
+
     <item
         android:id="@+id/templateCongratulation"
         android:icon="@android:drawable/ic_dialog_email"
