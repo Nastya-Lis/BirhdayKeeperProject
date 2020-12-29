@@ -34,10 +34,6 @@ public class ShowInfoPersonActivity extends AppCompatActivity {
 
     final String BIRTH_ARG = "birthArg";
 
- /*   TextView name,surname,category,email,phone,dateBirth;
-    Calendar calendar = Calendar.getInstance();
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-    String currentDateFormat, birthDateFormat;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +55,6 @@ public class ShowInfoPersonActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.birthMan_info,infoFragment);
         transaction.commit();
-
-    /*    name = findViewById(R.id.nameCurrentPersonId);
-        surname = findViewById(R.id.surnameCurrentPersonId);
-        email = findViewById(R.id.emailCurrentPersonId);
-        phone = findViewById(R.id.phoneCurrentPersonId);
-        category = findViewById(R.id.categoryCurrentPersonId);
-        dateBirth = findViewById(R.id.birthdayCurrentPersonId);
-
-        setDataInCurrentRecipe();*/
 
     }
 
@@ -121,69 +108,4 @@ public class ShowInfoPersonActivity extends AppCompatActivity {
         return  getBirthMan;
     }
 
-
- /*   private BirthDayMan getDataCurrentBirthMan(){
-        Bundle bundle = getIntent().getExtras();
-
-        BirthDayMan getBirthMan = (BirthDayMan) bundle.getSerializable(BirthDayMan.class.getSimpleName());
-
-        try {
-            int notificationId = (int) bundle.get("NotificationID");
-            NotificationManager notificationManager =
-                    (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.cancel(notificationId);
-        }
-        catch (Exception e){
-
-        }
-
-
-        return  getBirthMan;
-    }
-
-    private void setDataInCurrentRecipe(){
-        BirthDayMan currentBirthMan = getDataCurrentBirthMan();
-        name.setText(currentBirthMan.getName());
-        surname.setText(currentBirthMan.getSurname());
-        email.setText(currentBirthMan.getEmail());
-        phone.setText(currentBirthMan.getPhone());
-        category.setText(currentBirthMan.getCategory().toString());
-        //image.setImageURI(Uri.parse(currentRecipe.getPhoto()));
-        dateBirth.setText(String.valueOf(currentBirthMan.getBirthData()));
-
-    }
-
-    public void emailCross(View view) {
-        currentDateFormat = simpleDateFormat.format(calendar.getTime());
-        currentDateFormat = currentDateFormat.substring(0,5);
-        birthDateFormat = dateBirth.getText().toString();
-        birthDateFormat = birthDateFormat.substring(0,5);
-
-        if(currentDateFormat.equals(birthDateFormat)){
-        Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"
-                + getDataCurrentBirthMan().getEmail()));
-        startActivity(intent);}
-        else{
-            Toast.makeText(this,"Терпение, мой друг, время еще не пришло...",
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void phoneCross(View view) {
-        currentDateFormat = simpleDateFormat.format(calendar.getTime());
-        currentDateFormat = currentDateFormat.substring(0,5);
-        birthDateFormat = dateBirth.getText().toString();
-        birthDateFormat = birthDateFormat.substring(0,5);
-
-        if(currentDateFormat.equals(birthDateFormat)){
-        String telephone = getDataCurrentBirthMan().getPhone();
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:"+ telephone));
-        startActivity(intent);
-        }
-        else{
-            Toast.makeText(this,"Терпение, мой друг, время еще не пришло...",
-                    Toast.LENGTH_LONG).show();
-        }
-    }*/
 }

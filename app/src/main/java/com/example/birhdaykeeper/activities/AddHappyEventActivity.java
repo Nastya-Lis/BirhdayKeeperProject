@@ -109,9 +109,5 @@ public class AddHappyEventActivity extends AppCompatActivity {
 
         }
 
-        //добавление в бд нового человека
-        //мб здесь же будет обновляться ресайкл вью, что навряд ли
-
-        //Toast.makeText(getApplicationContext(),"Челик создан",Toast.LENGTH_SHORT).show();
     }
 }

@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     Calendar calendar;
     SimpleDateFormat simpleDateFormat;
     String dataPickFormat;
-    //AsyncModeDb asyncModeDb = new AsyncModeDb();
 
     File file;
     JsonManager jsonManager = new JsonManager();
@@ -50,9 +49,6 @@ public class MainActivity extends AppCompatActivity {
     BirthdayManAdapter birthdayManAdapter;
 
     BirthdayManSQLiteDataBase sqLiteDataBase;
-
-//    List<BirthDayMan> listMen = new ArrayList<>();
-
     PopupMenu popupMenu;
 
 
@@ -65,8 +61,6 @@ public class MainActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
 
         recyclerView  = findViewById(R.id.myRecycler);
-
-//        asyncModeDb.execute(listMen);
 
         file = new File(super.getFilesDir(),FILENAME);
        // jsonManager.takeFileFromActivity(file);
@@ -82,27 +76,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendarView.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
+            int mYear = year;
+            int mMonth = month;
+            int mDay = dayOfMonth;
 
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                int mYear = year;
-                int mMonth = month;
-                int mDay = dayOfMonth;
+            recyclerView.removeAllViewsInLayout();
 
-                //очистка ресайклавью от данных
-                //немного шакальный
-                //но пока сгодится
-                recyclerView.removeAllViewsInLayout();
+            simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            calendar.set(mYear,mMonth,mDay);
+            dataPickFormat = simpleDateFormat.format(calendar.getTime());
 
-                simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-                calendar.set(mYear,mMonth,mDay);
-                dataPickFormat = simpleDateFormat.format(calendar.getTime());
+            activateSQLDb(dataPickFormat);
 
-                activateSQLDb(dataPickFormat);
-
-                //   Toast.makeText(getApplicationContext(),dataPickFormat, Toast.LENGTH_SHORT).show();
-            }
         });
 
         if(dataPickFormat!=null)
@@ -181,33 +167,25 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra(BirthDayMan.class.getSimpleName(), birthdayMan);
                 startActivity(intent);
             });
-         //   listFragment.updateFragmentData();
-
 
         birthdayManAdapter.setOnBirthManLongClickListener((birthDayMan, view) -> {
             popupMenu = new PopupMenu(this, view);
             popupMenu.inflate(R.menu.context_menu);
-            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                @Override
-                public boolean onMenuItemClick(MenuItem menuItem) {
-                    switch (menuItem.getItemId()) {
-                        case R.id.editId:
-                            editRecipe(birthDayMan);
-                            break;
-                        case R.id.deleteId:
-                            deleteRecipe(birthDayMan);
-                       //     activateSQLDb(dataPickFormat);
-                            break;
-                    }
-                    return true;
+            popupMenu.setOnMenuItemClickListener(menuItem -> {
+                switch (menuItem.getItemId()) {
+                    case R.id.editId:
+                        editRecipe(birthDayMan);
+                        break;
+                    case R.id.deleteId:
+                        deleteRecipe(birthDayMan);
+                        break;
                 }
+                return true;
             });
             popupMenu.show();
             return true;
         });
 
-       // updatingData();
-      //  listFragment.updateFragmentData();
     }
 
     private void editRecipe(BirthDayMan birthDayMan){
@@ -257,59 +235,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
     }
-
-    public void startService(View view) {
-        Intent intent = new Intent(this, NotificationService.class);
-        intent.putExtra("Date", dataPickFormat);
-        startService(intent);
-        //нужно через стартфореграунд запускать
-      //  ContextCompat.startForegroundService(this,intent);
-
-    }
-
-    public void stopService(View view) {
-        stopService(new Intent(this, NotificationService.class));
-    }
-
-
- /*   private class AsyncModeDb extends AsyncTask<List<BirthDayMan>,Void,List<BirthDayMan>> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(List<BirthDayMan> birthDayMEN) {
-            super.onPostExecute(birthDayMEN);
-            updatingData(birthDayMEN);
-        }
-
-        @Override
-        protected List<BirthDayMan> doInBackground(List<BirthDayMan>... lists) {
-            BirthdayManSQLiteDataBase sqlDb = BirthdayManSQLiteDataBase.getInstance(MainActivity.this);
-            //  List<Recipe> recList = new ArrayList<>();
-            try {
-                listMen = sqlDb.takeMenByBirth(dataPickFormat);
-            } catch (SQLDBException e) {
-                e.printStackTrace();
-            }
-            return listMen;
-        }
-
-     *//*   @Override
-        protected Object doInBackground(Object[] objects) {
-            RecipeSQLiteDataBase sqlDb = RecipeSQLiteDataBase.getInstance(MainActivity.this);
-            List<Recipe> recList = new ArrayList<>();
-            try {
-               recList = sqlDb.takeAllRecipesFromDb();
-               return recList;
-            } catch (SQLDBException e) {
-                e.printStackTrace();
-                return null;
-            }
-       }*//*
-    }*/
 
 
 }

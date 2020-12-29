@@ -82,7 +82,7 @@ public class JsonManipulation {
     }
 
 
-    public void removeElementV2(String stringSend,File file){
+    public void removeElement(String stringSend, File file){
         List<String> listString = deserializationFromJson(file).listTemplate;
         listString.removeIf(str ->str.equals(stringSend));
         serializationToJsonForRemove(file,new StringForJson(listString));

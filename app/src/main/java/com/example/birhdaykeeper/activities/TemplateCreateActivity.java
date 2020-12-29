@@ -5,11 +5,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,11 +16,9 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.example.birhdaykeeper.MainActivity;
 import com.example.birhdaykeeper.R;
 import com.example.birhdaykeeper.serializableStuff.JsonManager;
 import com.example.birhdaykeeper.serializableStuff.StringForJson;
-import com.example.birhdaykeeper.unit.BirthDayMan;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -113,13 +107,9 @@ public class TemplateCreateActivity extends AppCompatActivity {
 
      //   loadStuff();
         // updatingData();
-        //  listFragment.updateFragmentData();
     }
 
     private void editRecipe(String forJson){
-      /*  Intent intent = new Intent(this, UpdateInfoPersonActivity.class);
-        intent.putExtra(BirthDayMan.class.getSimpleName(),birthDayMan);
-        startActivity(intent);*/
 
         View view = getLayoutInflater().inflate(R.layout.layout_add_template,null);
         congratulationField = view.findViewById(R.id.dialog_view_addCongratulation);
@@ -161,7 +151,7 @@ public class TemplateCreateActivity extends AppCompatActivity {
         alert.setTitle("Внимание!").
                 setMessage("Вы действительно хотите удалить шаблончик?").
                 setPositiveButton("Да", (dialogInterface, i) -> {
-                    jsonManager.jsonManipulation.removeElementV2(forJson,file);
+                    jsonManager.jsonManipulation.removeElement(forJson,file);
                     Toast.makeText(TemplateCreateActivity.this,"успешно удалено",
                             Toast.LENGTH_SHORT).show();
                 }).setNegativeButton("Нет", (dialogInterface, i) -> {
@@ -169,16 +159,6 @@ public class TemplateCreateActivity extends AppCompatActivity {
                 });
         android.app.AlertDialog alertDialog = alert.create();
         alertDialog.show();
-
-/*
-        if(file!=null) {
-            stringForJson = jsonManager.jsonManipulation.deserializationFromJson(file);
-            arrayAdapter = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_list_item_1,stringForJson.listTemplate);
-
-            listView.setAdapter(arrayAdapter);
-        }
-*/
 
     }
 
@@ -219,20 +199,6 @@ public class TemplateCreateActivity extends AppCompatActivity {
 
         }
 
-
-    /*    if(id == DIALOG_UPDATE){
-            View view = getLayoutInflater().inflate(R.layout.layout_add_template,null);
-            alertDialogBuilder.setView(view)
-                    .setPositiveButton("Изменить", (dialogInterface, i) -> {
-                            congratulationField.setText(stringForJson.listTemplate.
-                                    get(itemSelectedPosition));
-                            jsonManager.jsonManipulation.serializationToJsonForUpdate(file,stringForJson);
-                            Toast.makeText(TemplateCreateActivity.this,
-                                    "успешно обновлено",Toast.LENGTH_SHORT).show();
-
-
-                    }).setNegativeButton("Нет",null);
-        }*/
         return alertDialogBuilder.create();
     }
 

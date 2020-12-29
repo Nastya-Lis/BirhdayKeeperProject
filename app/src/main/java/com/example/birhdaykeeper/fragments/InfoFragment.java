@@ -59,30 +59,10 @@ public class InfoFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             birthDayMan = (BirthDayMan) getArguments().getSerializable(BIRTH_ARG);
-        /*    mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);*/
         }
     }
 
 
-/*
-    private BirthDayMan getDataCurrentBirthMan(){
-        Bundle bundle = getActivity().getIntent().getExtras();
-
-        BirthDayMan getBirthMan = (BirthDayMan) bundle.getSerializable(BirthDayMan.class.getSimpleName());
-
-        try {
-            int notificationId = (int) bundle.get("NotificationID");
-            NotificationManager notificationManager =
-                    (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
-            notificationManager.cancel(notificationId);
-        }
-        catch (Exception e){
-
-        }
-
-        return  getBirthMan;
-    }*/
 
     private void setDataInCurrentRecipe(){
         if(birthDayMan!=null) {
@@ -92,47 +72,10 @@ public class InfoFragment extends Fragment {
             email.setText(currentBirthMan.getEmail());
             phone.setText(currentBirthMan.getPhone());
             category.setText(currentBirthMan.getCategory().toString());
-            //image.setImageURI(Uri.parse(currentRecipe.getPhoto()));
             dateBirth.setText(String.valueOf(currentBirthMan.getBirthData()));
         }
     }
 
-/*
-
-    public void emailCross(View view) {
-        currentDateFormat = simpleDateFormat.format(calendar.getTime());
-        currentDateFormat = currentDateFormat.substring(0,5);
-        birthDateFormat = dateBirth.getText().toString();
-        birthDateFormat = birthDateFormat.substring(0,5);
-
-        if(currentDateFormat.equals(birthDateFormat)){
-            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"
-                    + birthDayMan.getEmail()));
-            startActivity(intent);}
-        else{
-            Toast.makeText(getActivity(),"Терпение, мой друг, время еще не пришло...",
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void phoneCross(View view) {
-        currentDateFormat = simpleDateFormat.format(calendar.getTime());
-        currentDateFormat = currentDateFormat.substring(0,5);
-        birthDateFormat = dateBirth.getText().toString();
-        birthDateFormat = birthDateFormat.substring(0,5);
-
-        if(currentDateFormat.equals(birthDateFormat)){
-            String telephone = birthDayMan.getPhone();
-            Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:"+ telephone));
-            startActivity(intent);
-        }
-        else{
-            Toast.makeText(getActivity(),"Терпение, мой друг, время еще не пришло...",
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-*/
 
     @Override
     public void onStart() {
@@ -143,23 +86,6 @@ public class InfoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-     /*   buttonEmail.setOnClickListener(view -> {
-            currentDateFormat = simpleDateFormat.format(calendar.getTime());
-            currentDateFormat = currentDateFormat.substring(0,5);
-            birthDateFormat = dateBirth.getText().toString();
-            birthDateFormat = birthDateFormat.substring(0,5);
-
-            if(currentDateFormat.equals(birthDateFormat)){
-
-               *//* Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"
-                        + birthDayMan.getEmail()));
-                startActivity(intent);*//*
-            }
-            else{
-                Toast.makeText(getActivity(),"Терпение, мой друг, время еще не пришло...",
-                        Toast.LENGTH_LONG).show();
-            }
-        });*/
         buttonPhone.setOnClickListener(view -> {
             currentDateFormat = simpleDateFormat.format(calendar.getTime());
             currentDateFormat = currentDateFormat.substring(0,5);

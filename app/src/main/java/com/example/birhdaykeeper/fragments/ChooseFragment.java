@@ -85,7 +85,7 @@ public class ChooseFragment extends Fragment {
                 Log.i("Log_frag", selected);
                 Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"
                         + birthDayMan.getEmail()));
-                intent.putExtra(Intent.EXTRA_SUBJECT,"Прими мои поздравления, семпай");
+                intent.putExtra(Intent.EXTRA_SUBJECT,"С днем рождения!!");
                 intent.putExtra(Intent.EXTRA_TEXT,selected);
                 startActivity(intent);
             }

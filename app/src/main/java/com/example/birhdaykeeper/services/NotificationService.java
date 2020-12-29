@@ -90,31 +90,9 @@ public class NotificationService extends Service {
                 }
             }
         }).start();
-     //   stopSelf();
+
     }
 
-
-  /*  void someTask() {
-       calendar = Calendar.getInstance();
-       simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
-       String dateFormat = simpleDateFormat.format(calendar.getTime());
-        new Thread(new Runnable() {
-          @Override
-          public void run() {
-            if(sqLiteDataBase == null){
-                sqLiteDataBase = BirthdayManSQLiteDataBase.getInstance(getApplicationContext());
-            }
-              try {
-                  List<BirthDayMan> birthDayManList = sqLiteDataBase.takeMenByBirth(dateFormat);
-                  Log.d(LOG_TAG,"size:" + birthDayManList.size() );
-                  madeNotification(birthDayManList);
-              } catch (SQLDBException e) {
-                  e.printStackTrace();
-              }
-              stopSelf();
-          }
-      }).start();
-    }*/
 
 
     void madeNotification(List<BirthDayMan> birthDayManList){
@@ -125,21 +103,6 @@ public class NotificationService extends Service {
         List<Notification> groups = new ArrayList<>();
 
         for(int i = 0; i < birthDayManList.size();i++){
-
-
-        /*    BirthDayMan sendMan = new BirthDayMan();
-            sendMan.setId(man.getId());
-            sendMan.setName(man.getName());
-            sendMan.setSurname(man.getSurname());
-            try {
-                sendMan.setEmail(man.getEmail());
-                sendMan.setPhone(man.getPhone());
-            } catch (ExceptionBirth exceptionBirth) {
-                exceptionBirth.printStackTrace();
-            }
-
-            sendMan.setCategory(man.getCategory());
-            sendMan.setBirthData(man.getBirthData());*/
             countChannel++;
 
             Intent intent = new Intent(this, ShowInfoPersonActivity.class);
@@ -166,11 +129,6 @@ public class NotificationService extends Service {
 
             Notification notification = builder.build();
             groups.add(notification);
-
-        //    startForeground(countChannel,notification);
-
-           //notificationManager.notify(countChannel, notification);
-
         }
 
         int mainId = 245;
@@ -185,12 +143,9 @@ public class NotificationService extends Service {
 
         for(int i = 0; i < groups.size();i++){
             notificationManager.notify(i+1,groups.get(i));
-          //  stopSelf(i);
             SystemClock.sleep(1000);
         }
 
         notificationManager.notify(mainId,summaryNotification);
-
-
     }
 }

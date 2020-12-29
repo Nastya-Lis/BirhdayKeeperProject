@@ -85,26 +85,6 @@ public class SortActivity extends AppCompatActivity {
         super.onResume();
         updatingData();
         buttonChoose.setOnClickListener(view -> {
-           /* if(categoryChoose!=null && !categoryChoose.isEmpty()){
-
-                if(sqLiteDataBase == null)
-                {
-                    sqLiteDataBase = BirthdayManSQLiteDataBase.getInstance(SortActivity.this);
-                }
-                try {
-
-                  List<BirthDayMan> birthDayMEN = sqLiteDataBase.takeAllBirthManFromDb();
-                  List<BirthDayMan> birthSend = birthDayMEN.stream().
-                          filter((birthMan1)-> birthMan1.getCategory().toString() == categoryChoose).
-                          collect(Collectors.toList());
-
-                  updateRecyclerData(birthSend);
-
-                } catch (SQLDBException e) {
-                    e.printStackTrace();
-                }
-
-            }*/
             categoryChoosed();
 
         });
@@ -163,7 +143,6 @@ public class SortActivity extends AppCompatActivity {
             intent.putExtra(BirthDayMan.class.getSimpleName(), birthdayMan);
             startActivity(intent);
         });
-        //   listFragment.updateFragmentData();
 
 
         birthdayManAdapter.setOnBirthManLongClickListener((birthDayMan, view) -> {
@@ -188,8 +167,6 @@ public class SortActivity extends AppCompatActivity {
             return true;
         });
 
-        // updatingData();
-        //  listFragment.updateFragmentData();
     }
 
 
